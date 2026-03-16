@@ -82,16 +82,13 @@ ZSH_THEME="robbyrussell"
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_DEFAULT_SESSION_NAME="main"
 
-plugins=(git tmux zsh-autosuggestions aliases alias-finder)
+plugins=(git tmux zsh-autosuggestions aliases alias-finder z)
 
 source $ZSH/oh-my-zsh.sh
 
 # Source custom configs
 source ~/.zsh_aliases
 source ~/.zsh_exports
-
-# oh-my-zsh plugin
-. ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/z.sh
 
 # starship prompt
 eval "$(starship init zsh)"

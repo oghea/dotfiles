@@ -2,10 +2,6 @@
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
 
-# Java from Android Studio JBR
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-export PATH="$JAVA_HOME/bin:$PATH"
-
 # Ruby (Homebrew)
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
@@ -20,12 +16,6 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-
-# jenv (optional)
-if [ -d "$HOME/.jenv/bin" ]; then
-    export PATH="$HOME/.jenv/bin:$PATH"
-    eval "$(jenv init -)"
-fi
 
 # Misc
 export PATH="$HOME/.local/bin:$PATH"
