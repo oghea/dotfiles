@@ -1,0 +1,25 @@
+# Unbind default Ghostty tab switching
+keybind = cmd+physical:one=unbind
+keybind = cmd+physical:two=unbind
+keybind = cmd+physical:three=unbind
+keybind = cmd+physical:four=unbind
+keybind = cmd+physical:five=unbind
+keybind = cmd+physical:six=unbind
+keybind = cmd+physical:seven=unbind
+keybind = cmd+physical:eight=unbind
+keybind = cmd+physical:nine=unbind
+
+# Switch tmux windows with Cmd+number
+keybind = cmd+one=text:\x01\x31
+keybind = cmd+two=text:\x01\x32
+keybind = cmd+three=text:\x01\x33
+keybind = cmd+four=text:\x01\x34
+keybind = cmd+five=text:\x01\x35
+keybind = cmd+six=text:\x01\x36
+keybind = cmd+seven=text:\x01\x37
+keybind = cmd+eight=text:\x01\x38
+keybind = cmd+nine=text:\x01\x39
+
+background-opacity = 0.95
+
+theme = TokyoNight 

@@ -1,0 +1,35 @@
+# Editor / Shell
+alias zshconfig="cursor ~/.zshrc"
+alias ohmyzsh="cursor ~/.oh-my-zsh"
+alias rz='source ~/.zshrc'
+
+# Folder shortcuts
+alias repo="cd ~/Documents/repo"
+
+# PM2
+alias pm2all="cd ~/Documents/repo/pm2 && pm2 start ecosystem.config.js"
+
+# Mono
+alias mono="cd ~/Documents/repo/mono && pnpm run dev:server"
+alias employeeweb="cd ~/Documents/repo/mono && pnpm run dev:employee"
+alias famweb="cd ~/Documents/repo/marta-customer && pnpm run fam:dev"
+alias cgweb="cd ~/Documents/repo/marta-customer && pnpm run cg:dev"
+
+# CLI replacements
+alias ls='eza -lh --group-directories-first --icons --hyperlink'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias lg='lazygit'
+
+# Android
+alias arp="adb reverse tcp:4002 tcp:4002 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:9002 tcp:9002 && adb reverse tcp:9003 tcp:9003 && adb reverse tcp:9004 tcp:9004 && adb reverse tcp:9005 tcp:9005 && adb reverse tcp:9006 tcp:9006 && adb reverse tcp:9007 tcp:9007 && adb reverse tcp:9008 tcp:9008 && adb reverse tcp:9009 tcp:9009"
+
+# AWS / K8s
+alias awks="aws eks update-kubeconfig --region eu-central-1 --name k8s-cluster && export KUBE_CONFIG_PATH=~/.kube/config"
+alias k="kubectl"
+
+alias v="nvim"
+
+# GitHub
+alias mypr="gh search prs --author @me --state open"
