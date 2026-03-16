@@ -20,9 +20,10 @@ Personal dotfiles for macOS, managed with [GNU Stow](https://www.gnu.org/softwar
 ### Install dependencies
 
 ```bash
-brew install neovim tmux starship stow eza lazygit
-brew install --cask ghostty
+brew bundle
 ```
+
+This installs everything listed in the [`Brewfile`](./Brewfile) — CLI tools, casks, and dev dependencies.
 
 ### Additional requirements
 
