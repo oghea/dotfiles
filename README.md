@@ -12,6 +12,8 @@ Personal dotfiles for macOS, managed with [GNU Stow](https://www.gnu.org/softwar
 | [Starship](https://starship.rs/) | Cross-shell prompt with language/tool detection |
 | [Ghostty](https://ghostty.org/) | Terminal emulator — keybinds wired to tmux windows |
 | [Lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
+| [SketchyBar](https://github.com/FelixKratz/SketchyBar) | Custom macOS menu bar — Kanagawa Wave theme |
+| [btop](https://github.com/aristocratos/btop) | System resource monitor |
 
 ## Requirements
 
@@ -37,7 +39,10 @@ This installs everything listed in the [`Brewfile`](./Brewfile) — CLI tools, c
   ```bash
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   ```
-- **Nerd Font** — required for icons (e.g., [JetBrainsMono Nerd Font](https://www.nerdfonts.com/))
+- **Nerd Font** — required for icons in Neovim, SketchyBar, and other tools. Install via Homebrew:
+  ```bash
+  brew install --cask font-jetbrains-mono-nerd-font
+  ```
 
 ## Installation
 
@@ -52,7 +57,7 @@ Use GNU Stow to symlink configs. Each directory is a stow package — the folder
 
 ```bash
 # Symlink everything
-stow nvim starship lazygit tmux zsh ghostty
+stow nvim starship lazygit tmux zsh ghostty sketchybar btop
 
 # Or symlink individually
 stow nvim
@@ -106,6 +111,14 @@ This creates symlinks like:
 - **Dev shortcuts:** `mono`, `employeeweb`, `famweb`, `cgweb` for monorepo services
 - **Cloud/DevOps:** kubectl (`k`), AWS EKS config (`awks`)
 
+### SketchyBar
+
+- **Theme:** Kanagawa Wave (muted, earthy tones)
+- **Font:** JetBrainsMono Nerd Font
+- **Left:** workspace indicator (Rift), active app, quick launcher, Bluetooth
+- **Right:** clock, battery, volume
+- **Style:** transparent bar with blurred bracket groupings
+
 ### Starship
 
 - Left: git metrics, command duration, prompt character
@@ -115,5 +128,5 @@ This creates symlinks like:
 
 ```bash
 cd ~/.dotfiles
-stow -D nvim starship lazygit tmux zsh ghostty
+stow -D nvim starship lazygit tmux zsh ghostty sketchybar btop
 ```

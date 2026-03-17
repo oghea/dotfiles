@@ -20,6 +20,8 @@ keybind = cmd+seven=text:\x01\x37
 keybind = cmd+eight=text:\x01\x38
 keybind = cmd+nine=text:\x01\x39
 
+macos-option-as-alt = true
+
 background-opacity = 0.95
 
 theme = TokyoNight 
