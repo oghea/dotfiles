@@ -10,6 +10,11 @@ brew "neovim"
 # System monitoring
 brew "btop"       # System resource monitor
 
+# Docker
+brew "colima"       # Container runtime (Lima VM)
+brew "docker"       # Docker CLI
+brew "lazydocker"   # Terminal UI for Docker
+
 # Modern CLI replacements
 brew "eza"        # ls replacement
 brew "fd"         # find replacement
@@ -26,5 +31,6 @@ brew "sketchybar" # Custom macOS menu bar
 
 # Casks
 cask "ghostty"    # Terminal emulator
-cask "rectangle"  # Window manager
+cask "nikitabobko/tap/aerospace" # Tiling window manager
+cask "karabiner-elements"        # Keyboard customiser
 cask "font-jetbrains-mono-nerd-font" # Nerd Font for icons

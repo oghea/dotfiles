@@ -12,8 +12,12 @@ Personal dotfiles for macOS, managed with [GNU Stow](https://www.gnu.org/softwar
 | [Starship](https://starship.rs/) | Cross-shell prompt with language/tool detection |
 | [Ghostty](https://ghostty.org/) | Terminal emulator — keybinds wired to tmux windows |
 | [Lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
+| [Lazydocker](https://github.com/jesseduffield/lazydocker) | Terminal UI for Docker |
 | [SketchyBar](https://github.com/FelixKratz/SketchyBar) | Custom macOS menu bar — Kanagawa Wave theme |
 | [btop](https://github.com/aristocratos/btop) | System resource monitor |
+| [AeroSpace](https://github.com/nikitabobko/AeroSpace) | Tiling window manager |
+| [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | Keyboard customiser |
+| [gh-dash](https://github.com/dlvhdr/gh-dash) | GitHub dashboard TUI |
 
 ## Requirements
 
@@ -57,7 +61,7 @@ Use GNU Stow to symlink configs. Each directory is a stow package — the folder
 
 ```bash
 # Symlink everything
-stow nvim starship lazygit tmux zsh ghostty sketchybar btop
+stow */
 
 # Or symlink individually
 stow nvim
@@ -71,6 +75,8 @@ This creates symlinks like:
 - `ghostty/.config/ghostty/` → `~/.config/ghostty/`
 - `starship/starship.toml` → `~/starship.toml`
 - `zsh/.zshrc` → `~/.zshrc`
+- `aerospace/.config/aerospace/` → `~/.config/aerospace/`
+- `karabiner/.config/karabiner/` → `~/.config/karabiner/`
 
 ### Post-install
 
@@ -109,6 +115,7 @@ This creates symlinks like:
 - **Plugins:** git, tmux (auto-attaches to "main" session), zsh-autosuggestions, alias-finder
 - **CLI replacements:** `ls` → `eza`, `lg` → `lazygit`, `v` → `nvim`
 - **Dev shortcuts:** `mono`, `employeeweb`, `famweb`, `cgweb` for monorepo services
+- **Workday lifecycle:** `sod` (start of day) / `eod` (end of day) — manage Docker, pm2, and tmux sessions
 - **Cloud/DevOps:** kubectl (`k`), AWS EKS config (`awks`)
 
 ### SketchyBar
@@ -128,5 +135,5 @@ This creates symlinks like:
 
 ```bash
 cd ~/.dotfiles
-stow -D nvim starship lazygit tmux zsh ghostty sketchybar btop
+stow -D */
 ```
