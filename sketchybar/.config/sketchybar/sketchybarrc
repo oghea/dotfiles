@@ -85,7 +85,7 @@ sketchybar --default "${default[@]}"
 ################################
 
 # Left blur bracket
-sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/rift_space\..*/' '/front_app/' '/launcher/' '/launch\..*/' '/bluetooth/' \
+sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/space\..*/' '/front_app/' '/launcher/' '/launch\..*/' '/bluetooth/' \
            --set left_group background.color=0xd0${BG_BASE:2} \
                            background.corner_radius=16 \
                            background.height=34 \
@@ -128,50 +128,43 @@ sketchybar --add item cosmic_sep left \
                            icon.padding_right=4
 
 ############################
-#  Workspaces              #
+#  Workspaces (AeroSpace)  #
 ############################
 
-SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九" "十")
+sketchybar --add event aerospace_workspace_change
+
+SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九")
 SPACE_COLORS=(
-  "${WAVE_BLUE:2}"   "${SPRING_VIOLET:2}"  "${SAKURA_PINK:2}"  "${WAVE_AQUA:2}"   "${SPRING_GREEN:2}"
-  "${AUTUMN_YELLOW:2}"    "${AUTUMN_RED:2}"  "${WAVE_BLUE:2}"  "${SPRING_VIOLET:2}"  "${SAKURA_PINK:2}"
+  "${WAVE_BLUE:2}"      "${SPRING_VIOLET:2}"  "${SAKURA_PINK:2}"
+  "${WAVE_AQUA:2}"      "${SPRING_GREEN:2}"   "${AUTUMN_YELLOW:2}"
+  "${AUTUMN_RED:2}"     "${WAVE_BLUE:2}"      "${SPRING_VIOLET:2}"
 )
 
-RIFT_DATA="$(rift-cli query workspaces 2>/dev/null || echo '[]')"
-workspace_count=$(printf '%s\n' "$RIFT_DATA" | jq 'length')
-max_spaces=${#SPACE_ICONS[@]}
-(( workspace_count > max_spaces )) && workspace_count=$max_spaces
-
-for (( i=0; i<workspace_count; i++ )); do
+for (( i=0; i<9; i++ )); do
   sid=$((i + 1))
-  color_index=$((i % ${#SPACE_COLORS[@]}))
-  space_color="${SPACE_COLORS[color_index]}"
+  space_color="${SPACE_COLORS[i]}"
 
-  space=(
-    icon="${SPACE_ICONS[i]}"
-    icon.color=0xb0$space_color
-    icon.highlight_color=0xff${FG_PRIMARY:2}
-    icon.font.size=15.0
-    background.color=0x00000000
-    background.corner_radius=8
-    background.border_width=0
-    background.height=24
-    background.shadow.drawing=off
-    label.drawing=off
-    label.color=0xff${FG_SECONDARY:2}
-    label.font="JetBrainsMono Nerd Font:Medium:12.0"
-    label.padding_left=4
-    label.padding_right=4
-  )
-
-  sketchybar --add item "rift_space.$sid" left \
-             --set "rift_space.$sid" "${space[@]}"
+  sketchybar --add item "space.$sid" left \
+             --set "space.$sid" \
+               icon="${SPACE_ICONS[i]}" \
+               icon.color=0xb0$space_color \
+               icon.highlight_color=0xff${FG_PRIMARY:2} \
+               icon.font.size=15.0 \
+               background.color=0x00000000 \
+               background.corner_radius=8 \
+               background.border_width=0 \
+               background.height=24 \
+               background.shadow.drawing=off \
+               label.drawing=off
 done
 
-sketchybar --add item rift_updater left \
-           --set rift_updater script="$PLUGIN_DIR/rift_workspaces.sh" \
-                              update_freq=3 \
-                              drawing=off
+# Single updater: polls every 2s + listens to aerospace event
+sketchybar --add item aerospace_updater left \
+           --set aerospace_updater \
+             drawing=off \
+             update_freq=0 \
+             script="$PLUGIN_DIR/aerospace_workspaces.sh" \
+           --subscribe aerospace_updater aerospace_workspace_change
 
 ################################
 #  LEFT: Apps & Controls       #

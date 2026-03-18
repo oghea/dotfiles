@@ -34,6 +34,9 @@ alias v="nvim"
 # GitHub
 alias mypr="gh search prs --author @me --state open"
 
+# Python
+alias venv='source venv/bin/activate'
+
 # Workday lifecycle
 alias eod="bash ~/.dotfiles/scripts/workday-end.sh"
 alias sod="bash ~/.dotfiles/scripts/workday-start.sh"
