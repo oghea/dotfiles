@@ -23,8 +23,8 @@ inner.vertical = 0
 outer.left = 0
 outer.bottom = 0
 # Reserve space for sketchybar (height 40 + y_offset 2) on external
-# monitors; the MacBook screen doesn't need it
-outer.top = [{ monitor."built-in" = 0 }, 42]
+# monitors; the MacBook screen only gets a small breathing gap
+outer.top = [{ monitor."built-in" = 2 }, 42]
 outer.right = 0
 
 [mode.main.binding]
