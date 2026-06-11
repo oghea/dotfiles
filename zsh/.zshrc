@@ -93,7 +93,7 @@ source ~/.zsh_exports
 # starship prompt
 eval "$(starship init zsh)"
 
-# pyenv
+# pyenv (only on machines that have it)
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+command -v pyenv >/dev/null && eval "$(pyenv init -)"
