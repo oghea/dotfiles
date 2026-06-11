@@ -29,8 +29,12 @@ brew "lazygit"    # Terminal UI for git
 tap "FelixKratz/formulae"
 brew "sketchybar" # Custom macOS menu bar
 
+# Kube
+brew "kubectl"
+
 # Casks
 cask "ghostty"    # Terminal emulator
 cask "nikitabobko/tap/aerospace" # Tiling window manager
 cask "karabiner-elements"        # Keyboard customiser
 cask "font-jetbrains-mono-nerd-font" # Nerd Font for icons
+
