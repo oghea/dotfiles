@@ -1,6 +1,6 @@
 config-version = 2
 
-start-at-login = false
+start-at-login = true
 
 after-startup-command = ['exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/aerospace_watcher.sh']
 
