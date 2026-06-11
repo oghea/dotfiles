@@ -1,0 +1,10 @@
+.DS_Store
+
+# Local Claude Code settings
+**/.claude/settings.local.json
+
+# Vendored externally — TPM bootstraps itself from tmux.conf
+tmux/.config/tmux/plugins/
+
+# Install Oh My Zsh separately (see README)
+zsh/.oh-my-zsh/
