@@ -12,8 +12,9 @@ brew "btop"       # System resource monitor
 
 # Docker
 brew "colima"       # Container runtime (Lima VM)
-brew "docker"       # Docker CLI
-brew "lazydocker"   # Terminal UI for Docker
+brew "docker"          # Docker CLI
+brew "docker-compose"  # Compose v2 plugin (docker compose)
+brew "lazydocker"      # Terminal UI for Docker
 
 # Modern CLI replacements
 brew "eza"        # ls replacement
