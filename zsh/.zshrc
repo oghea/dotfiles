@@ -78,9 +78,17 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# tmux plugin config (auto-attach to "main" session)
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_DEFAULT_SESSION_NAME="main"
+# tmux autostart: first window attaches to "main"; additional windows join a
+# grouped session — same windows as "main" but independent focus, so each
+# AeroSpace workspace can sit on a different tmux window. Grouped sessions
+# destroy themselves when their terminal closes.
+if [[ -z "$TMUX" ]]; then
+  if tmux ls -F '#{session_name} #{session_attached}' 2>/dev/null | grep -q '^main [1-9]'; then
+    exec tmux new-session -t main \; set-option destroy-unattached on
+  else
+    exec tmux new-session -A -s main
+  fi
+fi
 
 plugins=(git tmux zsh-autosuggestions aliases alias-finder z)
 
