@@ -29,6 +29,10 @@ outer.right = 0
 
 [mode.main.binding]
 
+# Cycle windows within the current workspace (project-local alt-tab)
+alt-tab = 'focus dfs-next --boundaries workspace --boundaries-action wrap-around-the-workspace'
+alt-shift-tab = 'focus dfs-prev --boundaries workspace --boundaries-action wrap-around-the-workspace'
+
 # Fullscreen toggle
 cmd-ctrl-f = 'fullscreen'
 
