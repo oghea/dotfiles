@@ -84,7 +84,9 @@ ZSH_THEME="robbyrussell"
 # use `tmux new -s name` instead for work that should survive the window.
 if [[ -z "$TMUX" ]]; then
   if tmux ls -F '#{session_name} #{session_attached}' 2>/dev/null | grep -q '^main [1-9]'; then
-    exec tmux new-session \; set-option destroy-unattached on
+    n=2
+    while tmux has-session -t "=scratch-$n" 2>/dev/null; do (( n++ )); done
+    exec tmux new-session -s "scratch-$n" \; set-option destroy-unattached on
   else
     exec tmux new-session -A -s main
   fi
