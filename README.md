@@ -39,9 +39,9 @@ This installs everything listed in the [`Brewfile`](./Brewfile) — CLI tools, c
   ```bash
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   ```
-- **Tmux Plugin Manager (tpm)**:
+- **Tmux Plugin Manager (tpm)** — installs itself (with all plugins) the first time tmux starts. To install manually:
   ```bash
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
   ```
 - **Nerd Font** — required for icons in Neovim, SketchyBar, and other tools. Install via Homebrew:
   ```bash
