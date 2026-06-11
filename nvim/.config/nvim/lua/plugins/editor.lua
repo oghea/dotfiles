@@ -10,6 +10,7 @@ return {
           explorer = {
             auto_close = true,
             hidden = true,
+            ignored = true,
             layout = {
               preset = "sidebar",
               preview = "main",
