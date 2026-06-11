@@ -78,13 +78,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# tmux autostart: first window attaches to "main"; additional windows join a
-# grouped session — same windows as "main" but independent focus, so each
-# AeroSpace workspace can sit on a different tmux window. Grouped sessions
-# destroy themselves when their terminal closes.
+# tmux autostart: first window attaches to "main"; additional windows get
+# their own fully separate session (private windows, nothing shared with
+# main). Extra sessions destroy themselves when their terminal closes —
+# use `tmux new -s name` instead for work that should survive the window.
 if [[ -z "$TMUX" ]]; then
   if tmux ls -F '#{session_name} #{session_attached}' 2>/dev/null | grep -q '^main [1-9]'; then
-    exec tmux new-session -t main \; set-option destroy-unattached on
+    exec tmux new-session \; set-option destroy-unattached on
   else
     exec tmux new-session -A -s main
   fi
