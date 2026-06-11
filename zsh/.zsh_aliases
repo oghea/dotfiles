@@ -40,3 +40,17 @@ alias venv='source venv/bin/activate'
 # Workday lifecycle
 alias eod="bash ~/.dotfiles/scripts/workday-end.sh"
 alias sod="bash ~/.dotfiles/scripts/workday-start.sh"
+
+# Profiles: named tmux session per context (work/personal git identity
+# is handled by ~/.gitconfig includeIf, keyed on directory)
+_tmux_go() {
+  local name="$1" dir="$2"
+  if [[ -n "$TMUX" ]]; then
+    tmux new-session -d -s "$name" -c "$dir" 2>/dev/null
+    tmux switch-client -t "=$name"
+  else
+    tmux new-session -A -s "$name" -c "$dir"
+  fi
+}
+alias work='_tmux_go main ~/Documents/repo'
+alias personal='_tmux_go personal ~/Documents/personal'
