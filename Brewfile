@@ -20,6 +20,9 @@ brew "lazydocker"      # Terminal UI for Docker
 brew "eza"        # ls replacement
 brew "fd"         # find replacement
 brew "ripgrep"    # grep replacement
+brew "fzf"        # Fuzzy finder (also powers the sesh picker)
+brew "zoxide"     # Smarter cd (replaces the omz z plugin)
+brew "sesh"       # Smart tmux session manager
 
 # Git
 brew "gh"         # GitHub CLI

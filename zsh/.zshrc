@@ -92,7 +92,7 @@ if [[ -z "$TMUX" ]]; then
   fi
 fi
 
-plugins=(git tmux zsh-autosuggestions aliases alias-finder z)
+plugins=(git tmux zsh-autosuggestions aliases alias-finder)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,6 +102,12 @@ source ~/.zsh_exports
 
 # starship prompt
 eval "$(starship init zsh)"
+
+# zoxide — smarter cd (z <dir>, zi for interactive picker)
+eval "$(zoxide init zsh)"
+
+# fzf keybindings (Ctrl-R history, Ctrl-T files) and completion
+source <(fzf --zsh)
 
 # pyenv (only on machines that have it)
 export PYENV_ROOT="$HOME/.pyenv"
