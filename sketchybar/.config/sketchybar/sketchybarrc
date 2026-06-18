@@ -140,7 +140,7 @@ SPACE_COLORS=(
   "${AUTUMN_RED:2}"     "${WAVE_BLUE:2}"      "${SPRING_VIOLET:2}"
 )
 
-for (( i=0; i<9; i++ )); do
+for (( i=0; i<5; i++ )); do
   sid=$((i + 1))
   space_color="${SPACE_COLORS[i]}"
 

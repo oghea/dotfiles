@@ -20,12 +20,13 @@ preset = 'qwerty'
 [gaps]
 inner.horizontal = 0
 inner.vertical = 0
-outer.left = 0
-outer.bottom = 0
+outer.left = 16
+outer.bottom = 16
 # Reserve space for sketchybar (height 40 + y_offset 2) on external
-# monitors; the MacBook screen only gets a small breathing gap
-outer.top = [{ monitor."built-in" = 2 }, 42]
-outer.right = 0
+# monitors; the MacBook screen only gets a small breathing gap.
+# Both include an extra 8px to match the other outer gaps.
+outer.top = [{ monitor."built-in" = 10 }, 50]
+outer.right = 16
 
 [mode.main.binding]
 
@@ -67,10 +68,6 @@ cmd-ctrl-2 = 'workspace 2'
 cmd-ctrl-3 = 'workspace 3'
 cmd-ctrl-4 = 'workspace 4'
 cmd-ctrl-5 = 'workspace 5'
-cmd-ctrl-6 = 'workspace 6'
-cmd-ctrl-7 = 'workspace 7'
-cmd-ctrl-8 = 'workspace 8'
-cmd-ctrl-9 = 'workspace 9'
 
 # Move window to workspace
 cmd-ctrl-shift-1 = 'move-node-to-workspace 1'
@@ -78,10 +75,6 @@ cmd-ctrl-shift-2 = 'move-node-to-workspace 2'
 cmd-ctrl-shift-3 = 'move-node-to-workspace 3'
 cmd-ctrl-shift-4 = 'move-node-to-workspace 4'
 cmd-ctrl-shift-5 = 'move-node-to-workspace 5'
-cmd-ctrl-shift-6 = 'move-node-to-workspace 6'
-cmd-ctrl-shift-7 = 'move-node-to-workspace 7'
-cmd-ctrl-shift-8 = 'move-node-to-workspace 8'
-cmd-ctrl-shift-9 = 'move-node-to-workspace 9'
 
 # Switch to previous workspace
 cmd-ctrl-tab = 'workspace-back-and-forth'
