@@ -82,7 +82,11 @@ ZSH_THEME="robbyrussell"
 # their own fully separate session (private windows, nothing shared with
 # main). Extra sessions destroy themselves when their terminal closes —
 # use `tmux new -s name` instead for work that should survive the window.
-if [[ -z "$TMUX" ]]; then
+# Only autostart in a real interactive terminal. Tools that source this rc to
+# probe the environment (VS Code, Claude Code) pipe stdout, so `-t 1` is false
+# there and the `exec tmux` is skipped — otherwise it replaces the probe shell
+# and makes it exit non-zero ("Unable to resolve your shell environment").
+if [[ -z "$TMUX" ]] && [[ -o interactive ]] && [[ -t 1 ]]; then
   if tmux ls -F '#{session_name} #{session_attached}' 2>/dev/null | grep -q '^main [1-9]'; then
     n=2
     while tmux has-session -t "=scratch-$n" 2>/dev/null; do (( n++ )); done
