@@ -8,3 +8,6 @@ tmux/.config/tmux/plugins/
 
 # Install Oh My Zsh separately (see README)
 zsh/.oh-my-zsh/
+
+# Per-machine plugin pins; let each laptop float to its own :Lazy sync
+nvim/.config/nvim/lazy-lock.json
