@@ -108,10 +108,10 @@ source ~/.zsh_exports
 eval "$(starship init zsh)"
 
 # zoxide — smarter cd (z <dir>, zi for interactive picker)
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 # fzf keybindings (Ctrl-R history, Ctrl-T files) and completion
-source <(fzf --zsh)
+command -v fzf >/dev/null && source <(fzf --zsh)
 
 # pyenv (only on machines that have it)
 export PYENV_ROOT="$HOME/.pyenv"
@@ -119,3 +119,27 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# marta prod (account 458209770945) enforces MFA. Run `marta-login <6-digit-code>`
+# once per ~12h to mint a session into the `prayoga-mfa` profile and (re)build the
+# `marta-prod` kube context. Then switch clusters with: kubectx marta-prod
+marta-login() {
+  local code="$1"
+  if [[ -z "$code" ]]; then echo "usage: marta-login <mfa-code>"; return 1; fi
+  local creds ak sk st
+  creds=$(aws sts get-session-token \
+    --profile marta \
+    --serial-number arn:aws:iam::458209770945:mfa/iphone \
+    --token-code "$code" \
+    --duration-seconds 43200 \
+    --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
+    --output text) || return 1
+  read -r ak sk st <<< "$creds"
+  aws configure set aws_access_key_id     "$ak" --profile prayoga-mfa
+  aws configure set aws_secret_access_key "$sk" --profile prayoga-mfa
+  aws configure set aws_session_token     "$st" --profile prayoga-mfa
+  aws configure set region eu-central-1          --profile prayoga-mfa
+  aws eks update-kubeconfig --profile prayoga-mfa --region eu-central-1 \
+    --name k8s-cluster --alias marta-prod >/dev/null \
+    && echo "✅ marta-prod session valid ~12h — switch with: kubectx marta-prod"
+}
