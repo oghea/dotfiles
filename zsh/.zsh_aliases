@@ -30,6 +30,7 @@ alias awks="aws eks update-kubeconfig --region eu-central-1 --name k8s-cluster &
 alias k="kubectl"
 
 alias v="nvim"
+alias vs="nvim -c 'autocmd User SnacksDashboardOpened ++once enew'"  # open nvim straight into a fresh unnamed in-memory buffer (skips dashboard)
 
 # GitHub
 alias mypr="gh search prs --author @me --state open"
