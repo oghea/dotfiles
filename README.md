@@ -122,7 +122,7 @@ This creates symlinks like:
 
 - **Theme:** Kanagawa Wave (muted, earthy tones)
 - **Font:** JetBrainsMono Nerd Font
-- **Left:** workspace indicator (Rift), active app, quick launcher, Bluetooth
+- **Left:** app bar — open windows grouped by AeroSpace workspace (click or `cmd-alt-1..9` to focus), quick launcher, Bluetooth
 - **Right:** clock, battery, volume
 - **Style:** transparent bar with blurred bracket groupings
 
