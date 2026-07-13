@@ -7,7 +7,7 @@ Personal dotfiles for macOS, managed with [GNU Stow](https://www.gnu.org/softwar
 | Tool | Description |
 |------|-------------|
 | [Neovim](https://neovim.io/) | Editor — LazyVim distribution with TypeScript/React focus |
-| [Zsh](https://www.zsh.org/) | Shell — Oh My Zsh + Powerlevel10k |
+| [Zsh](https://www.zsh.org/) | Shell — Oh My Zsh + Starship prompt |
 | [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer — `Ctrl-a` prefix, vim-style navigation |
 | [Starship](https://starship.rs/) | Cross-shell prompt with language/tool detection |
 | [Ghostty](https://ghostty.org/) | Terminal emulator — keybinds wired to tmux windows |
@@ -73,7 +73,7 @@ This creates symlinks like:
 - `nvim/.config/nvim/` → `~/.config/nvim/`
 - `tmux/.config/tmux/` → `~/.config/tmux/`
 - `ghostty/.config/ghostty/` → `~/.config/ghostty/`
-- `starship/starship.toml` → `~/starship.toml`
+- `starship/.config/starship.toml` → `~/.config/starship.toml`
 - `zsh/.zshrc` → `~/.zshrc`
 - `aerospace/.config/aerospace/` → `~/.config/aerospace/`
 - `karabiner/.config/karabiner/` → `~/.config/karabiner/`
@@ -111,7 +111,7 @@ This creates symlinks like:
 
 ### Zsh
 
-- **Prompt:** Powerlevel10k (lean style)
+- **Prompt:** Starship (see `starship/.config/starship.toml`)
 - **Plugins:** git, tmux (auto-attaches to "main" session), zsh-autosuggestions, alias-finder
 - **CLI replacements:** `ls` → `eza`, `lg` → `lazygit`, `v` → `nvim`
 - **Dev shortcuts:** `mono`, `employeeweb`, `famweb`, `cgweb` for monorepo services
