@@ -76,6 +76,17 @@ cmd-ctrl-shift-3 = 'move-node-to-workspace 3'
 cmd-ctrl-shift-4 = 'move-node-to-workspace 4'
 cmd-ctrl-shift-5 = 'move-node-to-workspace 5'
 
+# Jump to the Nth window shown in the sketchybar app bar
+cmd-alt-1 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 1'
+cmd-alt-2 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 2'
+cmd-alt-3 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 3'
+cmd-alt-4 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 4'
+cmd-alt-5 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 5'
+cmd-alt-6 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 6'
+cmd-alt-7 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 7'
+cmd-alt-8 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 8'
+cmd-alt-9 = 'exec-and-forget /Users/prayogaantarasputra/.config/sketchybar/plugins/focus_nth.sh 9'
+
 # Switch to previous workspace
 cmd-ctrl-tab = 'workspace-back-and-forth'
 
