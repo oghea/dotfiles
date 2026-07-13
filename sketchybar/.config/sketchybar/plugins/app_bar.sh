@@ -37,8 +37,13 @@ app_icon() {
 }
 
 windows="$(list_windows_sorted)"
-# CLI hiccup (e.g. aerospace restarting): keep the last good bar state.
-[ -z "$windows" ] && exit 0
+if [ -z "$windows" ]; then
+  # Distinguish a genuine "no windows open" state (CLI alive: the focused
+  # workspace still resolves) from a CLI hiccup (aerospace restarting):
+  # clear the bar in the first case, hold last good state in the second.
+  [ -n "$(focused_workspace)" ] && "$SKETCHYBAR" --remove '/appbar\..*/'
+  exit 0
+fi
 
 focused_id="$(focused_window_id)"
 focused_ws="$(focused_workspace)"
