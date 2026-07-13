@@ -27,6 +27,7 @@ app_icon() {
     Notes)                                        echo "󱞎" ;;
     Obsidian)                                     echo "󰠮" ;;
     "Visual Studio Code"|Code|Cursor)             echo "󰨞" ;;
+    DataGrip)                                     echo "󰆼" ;;
     Docker|"Docker Desktop")                      echo "󰡨" ;;
     Figma)                                        echo "󰻿" ;;
     "System Settings")                            echo "󰒓" ;;
