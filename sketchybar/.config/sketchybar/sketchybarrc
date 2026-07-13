@@ -85,7 +85,7 @@ sketchybar --default "${default[@]}"
 ################################
 
 # Left blur bracket
-sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/space\..*/' '/front_app/' '/launcher/' '/launch\..*/' '/bluetooth/' \
+sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/appbar\..*/' '/launcher/' '/launch\..*/' '/bluetooth/' \
            --set left_group background.color=0xd0${BG_BASE:2} \
                            background.corner_radius=16 \
                            background.height=34 \
@@ -128,60 +128,21 @@ sketchybar --add item cosmic_sep left \
                            icon.padding_right=4
 
 ############################
-#  Workspaces (AeroSpace)  #
+#  App bar (AeroSpace)     #
 ############################
 
-sketchybar --add event aerospace_workspace_change
+# Windows grouped by workspace; rebuilt by app_bar.sh whenever
+# aerospace_watcher.sh detects a window/focus change.
+sketchybar --add event aerospace_windows_change
 
-SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九")
-SPACE_COLORS=(
-  "${WAVE_BLUE:2}"      "${SPRING_VIOLET:2}"  "${SAKURA_PINK:2}"
-  "${WAVE_AQUA:2}"      "${SPRING_GREEN:2}"   "${AUTUMN_YELLOW:2}"
-  "${AUTUMN_RED:2}"     "${WAVE_BLUE:2}"      "${SPRING_VIOLET:2}"
-)
-
-for (( i=0; i<5; i++ )); do
-  sid=$((i + 1))
-  space_color="${SPACE_COLORS[i]}"
-
-  sketchybar --add item "space.$sid" left \
-             --set "space.$sid" \
-               icon="${SPACE_ICONS[i]}" \
-               icon.color=0xb0$space_color \
-               icon.highlight_color=0xff${FG_PRIMARY:2} \
-               icon.font.size=15.0 \
-               background.color=0x00000000 \
-               background.corner_radius=8 \
-               background.border_width=0 \
-               background.height=24 \
-               background.shadow.drawing=off \
-               label.drawing=off
-done
-
-# Single updater: polls every 2s + listens to aerospace event
-sketchybar --add item aerospace_updater left \
-           --set aerospace_updater \
-             drawing=off \
-             update_freq=0 \
-             script="$PLUGIN_DIR/aerospace_workspaces.sh" \
-           --subscribe aerospace_updater aerospace_workspace_change
+sketchybar --add item appbar_updater left \
+           --set appbar_updater drawing=off \
+                                script="$PLUGIN_DIR/app_bar.sh" \
+           --subscribe appbar_updater aerospace_windows_change
 
 ################################
 #  LEFT: Apps & Controls       #
 ################################
-
-sketchybar --add item front_app left \
-           --set front_app icon.drawing=off \
-                          background.color=0x00000000 \
-                          background.corner_radius=0 \
-                          background.border_width=0 \
-                          background.shadow.drawing=off \
-                          label.color=0xff${FG_PRIMARY:2} \
-                          label.font="JetBrainsMono Nerd Font:SemiBold:13.0" \
-                          label.padding_left=12 \
-                          label.padding_right=12 \
-                          script="$PLUGIN_DIR/front_app.sh" \
-           --subscribe front_app front_app_switched
 
 sketchybar --add item launcher left \
            --set launcher icon=󱓞 \
@@ -292,4 +253,5 @@ sketchybar --add item volume right \
 #################
 
 echo "🌊 Kanagawa Wave theme loaded - muted elegance"
+"$PLUGIN_DIR/app_bar.sh" &
 sketchybar --update
