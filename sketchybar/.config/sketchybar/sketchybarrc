@@ -85,7 +85,7 @@ sketchybar --default "${default[@]}"
 ################################
 
 # Left blur bracket
-sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/appbar\..*/' '/launcher/' '/launch\..*/' '/bluetooth/' \
+sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/appbar\..*/' \
            --set left_group background.color=0xd0${BG_BASE:2} \
                            background.corner_radius=16 \
                            background.height=34 \
@@ -94,7 +94,7 @@ sketchybar --add bracket left_group '/portal/' '/cosmic_sep/' '/appbar\..*/' '/l
                            blur_radius=30
 
 # Right blur bracket  
-sketchybar --add bracket right_group '/clock/' '/battery/' '/volume/' '/spotify\..*/' \
+sketchybar --add bracket right_group '/clock/' '/battery/' '/volume/' '/bluetooth/' '/spotify\..*/' \
            --set right_group background.color=0xd0${BG_BASE:2} \
                             background.corner_radius=16 \
                             background.height=34 \
@@ -139,64 +139,6 @@ sketchybar --add item appbar_updater left \
            --set appbar_updater drawing=off \
                                 script="$PLUGIN_DIR/app_bar.sh" \
            --subscribe appbar_updater aerospace_windows_change
-
-################################
-#  LEFT: Apps & Controls       #
-################################
-
-sketchybar --add item launcher left \
-           --set launcher icon=󱓞 \
-                         icon.font.size=17.0 \
-                         icon.color=0xff${AUTUMN_YELLOW:2} \
-                         label.drawing=off \
-                         background.color=0x00000000 \
-                         background.corner_radius=0 \
-                         background.border_width=0 \
-                         background.shadow.drawing=off \
-                         click_script='sketchybar --set $NAME popup.drawing=toggle' \
-                         popup.horizontal=on \
-                         popup.align=center \
-                         popup.background.color=0xf0${BG_SURFACE:2} \
-                         popup.background.corner_radius=12 \
-                         popup.background.border_width=0 \
-                         popup.background.border_color=0x60${WAVE_BLUE:2} \
-                         popup.background.shadow.drawing=off
-
-launch_apps=("finder:" "ghostty:󱙝" "helium:󰖟")
-app_names=("Finder" "Ghostty" "Helium")
-app_colors=("${WAVE_AQUA:2}" "${SPRING_GREEN:2}" "${AUTUMN_YELLOW:2}")
-
-for i in "${!launch_apps[@]}"; do
-  IFS=':' read -r app icon <<< "${launch_apps[i]}"
-  name="${app_names[i]}"
-  color="${app_colors[i]}"
-  
-  sketchybar --add item "launch.$app" popup.launcher \
-             --set "launch.$app" icon="$icon" \
-                                 label="$name" \
-                                 label.drawing=off \
-                                 icon.color=0xff$color \
-                                 icon.font.size=17.0 \
-                                 background.color=0x00${BG_OVERLAY:2} \
-                                 background.corner_radius=8 \
-                                 background.border_width=1 \
-                                 background.border_color=0x30$color \
-                                 background.shadow.drawing=off \
-                                 click_script="open -a \"$name\"; sketchybar --set launcher popup.drawing=off"
-done
-
-sketchybar --add item bluetooth left \
-           --set bluetooth icon=󰂯 \
-                          icon.font.size=16.0 \
-                          icon.color=0xff${SPRING_VIOLET:2} \
-                          background.color=0x00000000 \
-                          background.corner_radius=0 \
-                          background.border_width=0 \
-                          background.shadow.drawing=off \
-                          label.drawing=off \
-                          update_freq=5 \
-                          script="$PLUGIN_DIR/bluetooth.sh" \
-           --subscribe bluetooth mouse.clicked
 
 ################################
 #  RIGHT: System Monitors      #
@@ -247,6 +189,19 @@ sketchybar --add item volume right \
                        background.shadow.drawing=off \
                        script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change
+
+sketchybar --add item bluetooth right \
+           --set bluetooth icon=󰂯 \
+                          icon.font.size=16.0 \
+                          icon.color=0xff${SPRING_VIOLET:2} \
+                          background.color=0x00000000 \
+                          background.corner_radius=0 \
+                          background.border_width=0 \
+                          background.shadow.drawing=off \
+                          label.drawing=off \
+                          update_freq=5 \
+                          script="$PLUGIN_DIR/bluetooth.sh" \
+           --subscribe bluetooth mouse.clicked
 
 #################
 #  Final launch #

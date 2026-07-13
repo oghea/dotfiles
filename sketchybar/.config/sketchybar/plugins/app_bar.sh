@@ -49,7 +49,6 @@ focused_id="$(focused_window_id)"
 focused_ws="$(focused_workspace)"
 
 args=(--remove '/appbar\..*/')
-order=()   # item names in visual order, for --move at the end
 pos=0
 prev_ws=""
 
@@ -70,7 +69,6 @@ while IFS='|' read -r ws id app; do
              icon="$marker" "icon.color=0xff$marker_color"
              icon.font.size=13.0 icon.padding_left=8 icon.padding_right=2
              label.drawing=off background.drawing=off)
-    order+=("$name")
     prev_ws="$ws"
   fi
 
@@ -107,14 +105,8 @@ while IFS='|' read -r ws id app; do
   fi
 
   args+=("${item[@]}")
-  order+=("$name")
 done <<< "$windows"
 
-# Place entries where the old workspace indicators lived: in creation order,
-# each moved before the launcher (A before launcher, then B before launcher
-# yields A B launcher).
-for name in "${order[@]}"; do
-  args+=(--move "$name" before launcher)
-done
-
+# Items append at the end of the bar's left side, which is exactly where
+# they belong — nothing sits to their right since the launcher was removed.
 "$SKETCHYBAR" "${args[@]}"

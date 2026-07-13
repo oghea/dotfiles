@@ -122,8 +122,8 @@ This creates symlinks like:
 
 - **Theme:** Kanagawa Wave (muted, earthy tones)
 - **Font:** JetBrainsMono Nerd Font
-- **Left:** app bar — open windows grouped by AeroSpace workspace (click or `cmd-alt-1..9` to focus), quick launcher, Bluetooth
-- **Right:** clock, battery, volume
+- **Left:** app bar — open windows grouped by AeroSpace workspace (click or `cmd-alt-1..9` to focus)
+- **Right:** clock, battery, volume, Bluetooth
 - **Style:** transparent bar with blurred bracket groupings
 
 ### Starship
