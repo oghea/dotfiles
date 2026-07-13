@@ -23,6 +23,7 @@ brew "ripgrep"    # grep replacement
 brew "fzf"        # Fuzzy finder (also powers the sesh picker)
 brew "zoxide"     # Smarter cd (replaces the omz z plugin)
 brew "sesh"       # Smart tmux session manager
+brew "glow"       # Terminal markdown renderer (powers the tmux cheatsheet popup)
 
 # Git
 brew "gh"         # GitHub CLI
