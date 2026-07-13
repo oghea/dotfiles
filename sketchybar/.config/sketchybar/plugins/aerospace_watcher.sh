@@ -5,8 +5,10 @@
 
 # Kill any previous instance of this watcher. Match by process name rather
 # than a /tmp lockfile — macOS purges /tmp after ~3 days, which let stale
-# watchers pile up across AeroSpace restarts.
-for pid in $(pgrep -f "aerospace_watcher.sh"); do
+# watchers pile up across AeroSpace restarts. The pattern requires a bash
+# interpreter before the script path so editors/pagers with the file open
+# (vim, tail -f, …) are never matched.
+for pid in $(pgrep -f "bash .*/aerospace_watcher.sh"); do
   [ "$pid" != "$$" ] && kill "$pid" 2>/dev/null
 done
 
