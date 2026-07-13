@@ -22,6 +22,7 @@ app_icon() {
     Slack)                                        echo "󰒱" ;;
     Discord)                                      echo "󰙯" ;;
     Spotify)                                      echo "󰓇" ;;
+    "YouTube Music")                              echo "󰗃" ;;
     Mail)                                         echo "󰇮" ;;
     Calendar)                                     echo "󰃭" ;;
     Notes)                                        echo "󱞎" ;;
