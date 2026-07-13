@@ -33,8 +33,24 @@ app_icon() {
     "System Settings")                            echo "󰒓" ;;
     Messages|WhatsApp|Telegram)                   echo "󰍦" ;;
     zoom.us)                                      echo "󰍫" ;;
-    *)                                            echo "󰣆" ;;
+    *)                                            echo "" ;;
   esac
+}
+
+# Fallback for unmapped apps: initials instead of a generic glyph.
+# Multi-word names use the first letter of the first two words
+# ("YouTube Music" -> YM); single words use their capital letters
+# ("DataGrip" -> DG); no capitals falls back to the first letter
+# ("zoom" -> Z). Capped at two characters.
+app_initials() {
+  local name="$1" initials
+  if [[ "$name" == *" "* ]]; then
+    initials=$(echo "$name" | awk '{for(i=1;i<=2&&i<=NF;i++) printf toupper(substr($i,1,1))}')
+  else
+    initials=$(echo "$name" | tr -cd '[:upper:]')
+    [ -z "$initials" ] && initials=$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')
+  fi
+  echo "${initials:0:2}"
 }
 
 windows="$(list_windows_sorted)"
@@ -82,9 +98,12 @@ while IFS='|' read -r ws id app; do
     color="${WS_COLORS[0]}"
   fi
 
+  icon="$(app_icon "$app")"
+  [ -z "$icon" ] && icon="$(app_initials "$app")"
+
   item=(--add item "$name" left
         --set "$name"
-          icon="$(app_icon "$app")" icon.font.size=15.0
+          icon="$icon" icon.font.size=15.0
           icon.padding_left=6 icon.padding_right=2
           label.font.size=9.0 "label.color=0xff$FG_DIM"
           label.padding_left=0 label.padding_right=5
