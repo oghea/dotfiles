@@ -92,7 +92,7 @@ This creates symlinks like:
 - **Languages:** TypeScript, JavaScript, React/TSX, JSON, Docker, YAML, Bash, Tailwind CSS
 - **Formatting:** Prettier (TS/JS), ESLint integration
 - **LSP:** Managed via Mason (auto-install)
-- **Navigation:** vim-tmux-navigator for seamless pane switching with `Ctrl-h/j/k/l`
+- **Navigation:** `Ctrl-h/j/k/l` moves between splits within Neovim (tmux-level pane switching is separate — see Tmux)
 - **Theme:** Tokyo Night (transparent background)
 - **Git:** gitsigns, diffview, octo.nvim (GitHub PRs/issues)
 - **Project picker:** custom picker for `~/Documents/repo`
@@ -101,7 +101,8 @@ This creates symlinks like:
 
 - **Prefix:** `Ctrl-a`
 - **Splits:** `d` (horizontal), `D` (vertical)
-- **Pane navigation:** `Ctrl-h/j/k/l` (shared with Neovim)
+- **Pane navigation:** `Alt+1..9` (select pane by number)
+- **Clear screen:** `Ctrl-l` (clears screen + scrollback; forwarded to Neovim inside a vim pane)
 - **Theme:** Tokyo Night
 
 ### Ghostty
