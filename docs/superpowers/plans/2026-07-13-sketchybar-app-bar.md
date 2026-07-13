@@ -351,17 +351,22 @@ Note: capture `list_windows_sorted` once into a variable instead of calling it t
 PREV=""
 while true; do
   WINDOWS="$(list_windows_sorted)"
+  WS="$(focused_workspace)"
   SNAP="$WINDOWS
 $(focused_window_id)
-$(focused_workspace)"
-  if [ -n "$WINDOWS" ] && [ "$SNAP" != "$PREV" ]; then
+$WS"
+  # WS non-empty = aerospace CLI is alive, even with zero windows open.
+  # A dead/errored CLI (empty WS) holds the last good state instead.
+  if [ -n "$WS" ] && [ "$SNAP" != "$PREV" ]; then
     /opt/homebrew/bin/sketchybar --trigger aerospace_windows_change
     PREV="$SNAP"
   fi
   sleep 0.5
 done
 ```
-(Use this second version verbatim for the loop.)
+(Use this second version verbatim for the loop. The `-n "$WS"` guard — not
+`-n "$WINDOWS"` — matters: a genuinely empty window list must still trigger
+the event so app_bar.sh can clear stale items.)
 
 - [ ] **Step 2: Restart the watcher**
 
