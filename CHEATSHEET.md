@@ -93,6 +93,7 @@ This lists custom/notable maps only — `Space s k` searches every keymap.
 | `Ctrl+H/J/K/L` | Navigate splits (and out to tmux panes) |
 | `Ctrl+/` | Toggle floating terminal |
 | `Space e` | Toggle file explorer |
+| `Space f d` | Find directory, open explorer there |
 | `Space f p` / `Space f P` | Recent projects / all projects |
 | `Space b d` / `Space b D` | Delete buffer / close all & dashboard |
 | `Space g d` / `Space g D` | Diffview open / close |

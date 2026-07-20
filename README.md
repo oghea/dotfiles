@@ -96,6 +96,7 @@ This creates symlinks like:
 - **Theme:** Tokyo Night (transparent background)
 - **Git:** gitsigns, diffview, octo.nvim (GitHub PRs/issues)
 - **Project picker:** custom picker for `~/Documents/repo`
+- **Directory picker:** `Space f d` fuzzy-finds a folder and opens the explorer rooted there
 
 ### Tmux
 
