@@ -11,7 +11,7 @@ return {
             auto_close = true,
             hidden = true,
             ignored = true,
-            exclude = { "node_modules" },
+            exclude = { "node_modules", "dist" },
             layout = {
               preset = "sidebar",
               preview = "main",
