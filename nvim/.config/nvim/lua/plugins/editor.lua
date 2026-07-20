@@ -10,7 +10,7 @@ return {
           explorer = {
             auto_close = true,
             hidden = true,
-            ignored = true,
+            ignored = false,
             exclude = { "node_modules", "dist" },
             layout = {
               preset = "sidebar",
@@ -35,6 +35,26 @@ return {
         "<leader>e",
         function() Snacks.explorer.open() end,
         desc = "Toggle Explorer",
+      },
+      {
+        "<leader>fd",
+        function()
+          Snacks.picker({
+            title = "Directories",
+            finder = "proc",
+            cmd = "fd",
+            args = { "--type", "d", "--hidden", "--exclude", ".git", "--exclude", "node_modules", "--exclude", "dist" },
+            transform = function(item)
+              item.file = item.text
+              item.dir = true
+            end,
+            confirm = function(picker, item)
+              picker:close()
+              Snacks.explorer.open({ cwd = vim.fn.fnamemodify(item.file, ":p") })
+            end,
+          })
+        end,
+        desc = "Find Directory (Explorer)",
       },
     },
   },
