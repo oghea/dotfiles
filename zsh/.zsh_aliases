@@ -80,13 +80,13 @@ pmon() {
   mode=$(mktemp) || return 1
   printf 'logs\n' > "$mode"
   FZF_DEFAULT_COMMAND="$gen" fzf --ansi --delimiter='\t' --tabstop=24 \
-    --with-nth=1,2 --pointer=' ' --color='gutter:-1' \
+    --nth=1,2 --with-nth=1,2 --pointer=' ' --color='gutter:-1' \
     --style=full --layout=reverse --info=hidden --cycle \
     --prompt='pm2 ❯ ' --ellipsis='…' \
     --list-label=' Processes ' --border-label=' pm2 ' --border-label-pos=3 \
-    --footer=' ↑↓ move · ⇥ next tab · ^x restart · ^r refresh · / filter · q quit ' \
+    --footer=' ↑↓ move · ⇥ next tab · ^x restart · ^r refresh · type: filter · q quit ' \
     --preview-window="right,${pw},follow,wrap" \
-    --preview="$prev \"\$(cat $mode)\" {1} {3} {4}" \
+    --preview="$prev \"\$(cat '$mode')\" {1} {3} {4}" \
     --preview-label-pos=3 \
     --bind="focus:transform-preview-label:$tab label $mode {1}" \
     --bind="tab:execute-silent($tab next $mode)+refresh-preview+transform-preview-label($tab label $mode {1})" \
