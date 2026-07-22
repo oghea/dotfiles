@@ -35,7 +35,7 @@ New file: `lazygit/.config/lazygit/config.yml`
 - `git.paging.colorArg: always`
 - `git.paging.pager: delta --dark --paging=never`
 - Delta options: line numbers on, unified view (no side-by-side — the
-  pane is only ~40% of the screen wide), TokyoNight-compatible colors.
+  pane is only ~40% of the screen wide).
 
 Delta is configured **only inside lazygit**, not in `~/.gitconfig`:
 keeps the setup fully inside the dotfiles repo and leaves plain
