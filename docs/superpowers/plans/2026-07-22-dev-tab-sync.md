@@ -52,7 +52,7 @@ export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 # is gone.
 poll_sibling() {
   local sib dir root
-  sib=$(tmux list-panes -F '#{pane_id}' | grep -vx "$SELF" | head -n1) || true
+  sib=$(tmux list-panes -t "$SELF" -F '#{pane_id}' | grep -vx "$SELF" | head -n1) || true
   [ -n "$sib" ] || return 1
   dir=$(tmux display-message -p -t "$sib" '#{pane_current_path}' 2>/dev/null) || return 1
   root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null || true)
