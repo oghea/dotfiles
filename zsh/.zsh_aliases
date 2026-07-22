@@ -62,3 +62,36 @@ if [[ -f ~/.gitconfig-personal ]]; then
   alias work='_tmux_go main ~/Documents/repo'
   alias personal='_tmux_go personal ~/Documents/personal'
 fi
+
+# pm2 monit replacement — lazydocker-style TUI. Left: process list with
+# live mem/restarts/uptime. Right: a tabbed preview (Logs · Info · Env)
+# for the highlighted process. Tab cycles tabs, ctrl-x restarts, ctrl-r
+# refreshes the list, q quits. Rendering scripts live in ~/.dotfiles/scripts.
+pmon() {
+  local gen="$HOME/.dotfiles/scripts/pm2-fzf-list.sh"
+  local prev="$HOME/.dotfiles/scripts/pm2-fzf-preview.sh"
+  local tab="$HOME/.dotfiles/scripts/pm2-fzf-tab.sh"
+  # Fixed-width list (~44 cols is what the rows need), preview gets the
+  # rest; percentages waste space on wide terminals. Recomputed per launch.
+  local pw=$(( COLUMNS - 44 ))
+  (( pw < 50 )) && pw='60%'
+  # Per-instance tab state; removed when fzf exits.
+  local mode
+  mode=$(mktemp) || return 1
+  printf 'logs\n' > "$mode"
+  FZF_DEFAULT_COMMAND="$gen" fzf --ansi --delimiter='\t' --tabstop=24 \
+    --with-nth=1,2 --pointer=' ' --color='gutter:-1' \
+    --style=full --layout=reverse --info=hidden --cycle \
+    --prompt='pm2 ❯ ' --ellipsis='…' \
+    --list-label=' Processes ' --border-label=' pm2 ' --border-label-pos=3 \
+    --footer=' ↑↓ move · ⇥ next tab · ^x restart · ^r refresh · / filter · q quit ' \
+    --preview-window="right,${pw},follow,wrap" \
+    --preview="$prev \"\$(cat $mode)\" {1} {3} {4}" \
+    --preview-label-pos=3 \
+    --bind="focus:transform-preview-label:$tab label $mode {1}" \
+    --bind="tab:execute-silent($tab next $mode)+refresh-preview+transform-preview-label($tab label $mode {1})" \
+    --bind="ctrl-r:reload:$gen" \
+    --bind="ctrl-x:reload:pm2 restart {1} >/dev/null 2>&1; $gen" \
+    --bind='enter:abort'
+  rm -f "$mode"
+}
