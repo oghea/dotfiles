@@ -76,6 +76,23 @@ runs a watcher script instead of bare lazygit:
 so restored panes come back with sync intact; the script self-discovers
 its sibling, so it survives pane-ID changes across restores.
 
+### 6. `dev` shell command (`scripts/dev-tab-open.sh`)
+
+Added after live use: a one-command alternative to `prefix+g`. The
+layout (new window in the current directory → 60/40 split → watcher
+right → focus left) moves into `scripts/dev-tab-open.sh`, the single
+source of truth used by both entry points:
+
+- The `bind g` binding calls it via `run-shell`, passing
+  `#{pane_current_path}`.
+- `alias dev` in `zsh/.zsh_aliases` calls it with no argument (defaults
+  to `$PWD`).
+- Run outside tmux it prints `dev-tab-open: run inside tmux` and exits
+  1 — this setup always lives inside tmux, so no auto-session logic.
+
+Both paths rely on tmux resolving the current session from `TMUX_PANE`
+(set in every pane and by `run-shell`).
+
 ### 4. CHEATSHEET.md
 
 Add a row documenting `prefix+g` → "dev tab: shell + lazygit diff".
