@@ -15,8 +15,8 @@ place to stage/commit when the work is done.
 
 - Ghostty is a thin layer over tmux (Cmd+1–9 → tmux windows), so a
   "special ghostty tab" is a tmux window.
-- lazygit is already installed and already listed in
-  `@resurrect-processes`, so the layout survives tmux restarts.
+- lazygit is already installed; it gets added to
+  `@resurrect-processes` so the layout survives tmux restarts.
 - `~/.gitconfig` is intentionally outside the dotfiles repo
   (work/personal identity split) and must not be touched.
 - `lazygit/.config/lazygit/` exists in the repo but is empty (defaults).
