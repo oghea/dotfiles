@@ -84,9 +84,10 @@ right → focus left) moves into `scripts/dev-tab-open.sh`, the single
 source of truth used by both entry points:
 
 - The `bind g` binding calls it via `run-shell`, passing
-  `#{pane_current_path}`.
-- `alias dev` in `zsh/.zsh_aliases` calls it with no argument (defaults
-  to `$PWD`).
+  `#{pane_current_path}` — opens the layout in a **new window**.
+- `alias dev` in `zsh/.zsh_aliases` calls it with `--here` — skips the
+  `new-window` and adds the watcher pane to the **current window**,
+  splitting the pane you ran it from (directory defaults to `$PWD`).
 - Run outside tmux it prints `dev-tab-open: run inside tmux` and exits
   1 — this setup always lives inside tmux, so no auto-session logic.
 
