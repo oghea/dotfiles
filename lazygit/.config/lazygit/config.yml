@@ -1,0 +1,8 @@
+# Diffs rendered through delta (see Brewfile: git-delta).
+# lazygit on macOS looks in ~/Library/Application Support/lazygit by
+# default; LG_CONFIG_FILE (set in zsh/.zsh_exports and in the tmux
+# prefix+g binding) points it at this stowed file instead.
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers
