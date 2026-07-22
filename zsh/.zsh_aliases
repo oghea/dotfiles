@@ -92,6 +92,7 @@ pmon() {
     --bind="tab:execute-silent($tab next $mode)+refresh-preview+transform-preview-label($tab label $mode {1})" \
     --bind="ctrl-r:reload:$gen" \
     --bind="ctrl-x:reload:pm2 restart {1} >/dev/null 2>&1; $gen" \
+    --bind='q:abort' \
     --bind='enter:abort'
   rm -f "$mode"
 }
