@@ -47,9 +47,34 @@ In `tmux/.config/tmux/tmux.conf` (Splits/Windows area):
 
 - New window in `#{pane_current_path}`.
 - Horizontal split: left pane ~60% (shell, for `claude`), right pane
-  ~40% running lazygit.
+  ~40% running the dev-tab watcher (component 5).
 - Focus lands on the left pane.
-- Single `bind g` line; no helper script needed.
+
+### 5. Dev-tab watcher (`scripts/dev-tab-watch.sh`)
+
+Added after first live use: launching lazygit directly meant a non-repo
+directory triggered lazygit's "create a new git repository?" prompt, and
+the right pane never followed the left pane's `cd`. The right pane now
+runs a watcher script instead of bare lazygit:
+
+- Polls its sibling (left) pane's current path once a second via tmux,
+  resolving it to a git repo root.
+- Repo found → runs lazygit rooted there. When the sibling moves to a
+  *different* repo root (including leaving git entirely), the current
+  lazygit is killed and the view restarts for the new location.
+  `cd` within the same repo causes no restart.
+- No repo → a quiet "no git repository — <path>" placeholder instead of
+  lazygit's init prompt; the watcher keeps polling so lazygit appears
+  the moment the sibling enters a repo.
+- Sibling pane closed → watcher exits (pane closes).
+- Quitting lazygit with `q` closes the pane, as before.
+- Known trade-off: restart-based sync resets lazygit UI state (scroll,
+  selection) when hopping repos — lazygit has no remote "change repo"
+  command.
+
+`@resurrect-processes` matches the watcher script (`~dev-tab-watch.sh`)
+so restored panes come back with sync intact; the script self-discovers
+its sibling, so it survives pane-ID changes across restores.
 
 ### 4. CHEATSHEET.md
 
@@ -62,6 +87,9 @@ Add a row documenting `prefix+g` → "dev tab: shell + lazygit diff".
   machines.
 - The keybind uses `new-window`/`split-window` primitives only — no
   failure modes beyond tmux itself.
+- The watcher exits cleanly when run outside tmux or when its sibling
+  pane disappears; a non-repo directory is a placeholder state, never an
+  error.
 
 ## Testing
 
