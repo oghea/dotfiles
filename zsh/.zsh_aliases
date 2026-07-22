@@ -42,6 +42,9 @@ alias venv='source venv/bin/activate'
 alias eod="bash ~/.dotfiles/scripts/workday-end.sh"
 alias sod="bash ~/.dotfiles/scripts/workday-start.sh"
 
+# Dev tab: shell + synced lazygit pane (same layout as Ctrl-a g)
+alias dev='~/.dotfiles/scripts/dev-tab-open.sh'
+
 # Profiles: named tmux session per context (work/personal git identity
 # is handled by ~/.gitconfig includeIf, keyed on directory).
 # Only on machines with the identity split — the personal laptop uses
