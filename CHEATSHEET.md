@@ -71,6 +71,7 @@ Prefix is **`Ctrl-a`** (shown as `⌃a`). "Prefix + X" = press `Ctrl-a`, release
 | `Ctrl-a h/j/k/l` | Resize pane left/down/up/right (repeatable) |
 | `Ctrl-l` | Clear screen + scrollback (no prefix) |
 | `Ctrl-a c` | New window |
+| `Ctrl-a g` | Dev tab: shell + lazygit diff pane |
 | `Ctrl-a n` / `Ctrl-a p` | Next / previous window |
 | `Cmd+1`…`9` | Jump to window N (via Ghostty) |
 | `Ctrl-a T` | sesh session picker |
