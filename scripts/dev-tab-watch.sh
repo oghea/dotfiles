@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
-# dev-tab-watch.sh — right-hand pane of the Ctrl-a g dev tab.
-# Follows the sibling (left) pane's directory: runs lazygit rooted at
-# that repo, restarts it when the sibling moves to a different repo,
-# and shows a placeholder instead of lazygit's init prompt when the
-# sibling isn't inside a git repo. Exits when the sibling pane closes
-# or when lazygit is quit with q.
+# dev-tab-watch.sh — right-hand pane of the dev tab (dev / Ctrl-a g).
+# Follows the sibling (left) pane's directory: runs the read-only
+# files+diff viewer (dev-tab-diff.sh) rooted at that repo, restarts it
+# when the sibling moves to a different repo, and shows a placeholder
+# when the sibling isn't inside a git repo. Exits when the sibling pane
+# closes or when the viewer is quit with q.
 set -u
 
 POLL=1
 SELF="${TMUX_PANE:-}"
 [ -n "$SELF" ] || { echo "dev-tab-watch: must run inside tmux" >&2; exit 1; }
-export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 
 # Prints "<dir>\t<root>" for the sibling pane; root is empty when the
 # directory is not inside a git repo. Returns 1 when the sibling pane
@@ -45,10 +44,10 @@ while :; do
   fi
   shown_dir=""
 
-  lazygit --path "$root" &
-  lg_pid=$!
+  "$HOME/.dotfiles/scripts/dev-tab-diff.sh" "$root" &
+  viewer_pid=$!
   status=user_quit
-  while kill -0 "$lg_pid" 2>/dev/null; do
+  while kill -0 "$viewer_pid" 2>/dev/null; do
     sleep "$POLL"
     state=$(poll_sibling) || { status=sibling_gone; break; }
     new_root=${state#*$'\t'}
@@ -57,8 +56,8 @@ while :; do
       break
     fi
   done
-  [ "$status" != user_quit ] && kill "$lg_pid" 2>/dev/null
-  wait "$lg_pid" 2>/dev/null
+  [ "$status" != user_quit ] && kill "$viewer_pid" 2>/dev/null
+  wait "$viewer_pid" 2>/dev/null
   tput rmcup 2>/dev/null || true
   [ "$status" = moved ] || exit 0
 done
