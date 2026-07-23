@@ -27,10 +27,8 @@ brew "glow"       # Terminal markdown renderer (powers the tmux cheatsheet popup
 
 # Git
 brew "gh"         # GitHub CLI
-brew "git-delta"  # Syntax-highlighting pager for git diffs (used by lazygit)
 brew "git-lfs"    # Git Large File Storage
 brew "lazygit"    # Terminal UI for git
-brew "tig"        # ncurses git browser — powers the dev tab's files/diff pane
 
 # Menu bar
 tap "FelixKratz/formulae"
