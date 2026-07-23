@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dev-tab-open.sh — open the dev tab: shell (left) + synced lazygit
+# dev-tab-open.sh — open the dev tab: shell (left) + synced files/diff
 # pane (right, via dev-tab-watch.sh). Shared by the tmux prefix+g
 # binding (new window) and the `dev` shell alias (--here: split the
 # current window in place). tmux resolves the target from TMUX_PANE.

@@ -24,8 +24,8 @@ Full lazygit remains available separately via the existing `lg` alias.
   `lazygit --path "$root"`.
 - delta is installed; its flags mirror the lazygit pager config
   (`delta --dark --paging=never --line-numbers`).
-- fzf is 0.74.1 (`--style=full`, `--listen`, preview-scroll actions).
-- `curl` is available and supports `--unix-socket`.
+- fzf is 0.74.1 (`--style=full`, preview-scroll actions).
+- the auto-refresh ticker uses `tmux send-keys` (in-tmux, no extra deps).
 
 ## Components
 
@@ -106,7 +106,7 @@ dev / Ctrl-a g → dev-tab-open.sh → split, right pane = dev-tab-watch.sh
                           dev-tab-diff.sh <root>
                             ├─ list:    git status --porcelain=v1
                             ├─ preview: git diff [HEAD|--no-index] -- <file> | delta
-                            └─ ticker:  curl --unix-socket → reload+refresh (~2s)
+                            └─ ticker:  tmux send-keys C-r → reload+refresh (~2s)
 ```
 
 ## Error handling
@@ -114,7 +114,7 @@ dev / Ctrl-a g → dev-tab-open.sh → split, right pane = dev-tab-watch.sh
 - **No repo:** handled upstream by the watcher's placeholder; the diff
   script is only launched with a valid root.
 - **Clean tree:** the `✓ working tree clean` sentinel line; empty preview.
-- **Refresh failure (socket/curl):** non-fatal; `ctrl-r` still refreshes,
+- **Refresh failure (send-keys):** non-fatal; `ctrl-r` still refreshes,
   and selection changes always re-render the preview from current state.
 - **Repo change / sibling close:** the watcher kills and relaunches (or
   exits), exactly as it does for lazygit today.
