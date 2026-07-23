@@ -46,13 +46,14 @@ changes, emit a single non-actionable line `✓ working tree clean`.
 - The `✓ working tree clean` sentinel line → empty preview.
 - Preview label = the selected file's path.
 
-**Live refresh:** `fzf --listen=<unix-socket>` (socket path from
-`mktemp`), plus a background ticker `while sleep 2; do curl -s
---unix-socket <socket> ... -d 'reload(<list-cmd>)+refresh-preview'; done`.
-The ticker starts before fzf and is killed when fzf exits; the socket
-file is removed on exit. If fzf's HTTP server requires an API key, set
-`FZF_API_KEY` and send it as the `x-api-key` header (implementation
-detail). If the refresh ever fails, fzf still works via manual `ctrl-r`.
+**Live refresh:** a background ticker `while sleep 2; do tmux send-keys
+-t "$TMUX_PANE" C-r; done` nudges this pane every 2s, triggering the same
+`ctrl-r` reload bind as a manual refresh. (This replaces an earlier
+`--listen`+`curl` design: sending `reload(...)` over fzf's socket needs
+the less-safe `--listen-unsafe` mode, whereas `send-keys` is already
+in-tmux, dependency-free, and achieves identical behavior.) The ticker
+starts before fzf and is killed when fzf exits. If `send-keys` ever fails
+(pane gone), the ticker exits; fzf still works via manual `ctrl-r`.
 
 **Keymap (lazygit-style modal):**
 - `j` / `k` → `down` / `up` (move selection in the files list).
