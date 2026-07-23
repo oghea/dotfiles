@@ -43,6 +43,15 @@ list="$self list '$root'"
 # Auto-refresh: nudge this pane with ctrl-r every 2s (same as manual ^r).
 pane="${TMUX_PANE:-}"
 ticker=""
+fzf_pid=""
+# Kill the ticker and fzf on ANY exit — including SIGTERM from the watcher
+# when it tears the viewer down on a repo switch. That signal never reaches
+# fzf otherwise, orphaning both it and the ticker (reparented to PID 1).
+cleanup() {
+  [ -n "$ticker" ] && kill "$ticker" 2>/dev/null
+  [ -n "$fzf_pid" ] && kill "$fzf_pid" 2>/dev/null
+}
+trap cleanup EXIT INT TERM
 if [ -n "$pane" ]; then
   ( while sleep 2; do tmux send-keys -t "$pane" C-r 2>/dev/null || exit 0; done ) &
   ticker=$!
@@ -61,7 +70,7 @@ FZF_DEFAULT_COMMAND="$list" fzf \
   --bind='ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up' \
   --bind="ctrl-r:reload($list)+refresh-preview" \
   --bind='q:abort' \
-  --bind='enter:abort'
-
-[ -n "$ticker" ] && kill "$ticker" 2>/dev/null
+  --bind='enter:abort' &
+fzf_pid=$!
+wait "$fzf_pid"
 exit 0
