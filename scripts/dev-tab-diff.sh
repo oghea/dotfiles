@@ -15,7 +15,7 @@ self="$HOME/.dotfiles/scripts/dev-tab-diff.sh"
 case "${1:-}" in
   list)
     root="${2:-}"
-    out=$(git -C "$root" status --porcelain=v1 2>/dev/null)
+    out=$(git -C "$root" -c core.quotePath=false status --porcelain=v1 --no-renames 2>/dev/null)
     if [ -z "$out" ]; then
       printf '✓ working tree clean\n'
     else
