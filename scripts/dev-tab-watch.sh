@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # dev-tab-watch.sh — right-hand pane of the dev tab (dev / Ctrl-a g).
-# Follows the sibling (left) pane's directory: runs the read-only
-# files+diff viewer (dev-tab-diff.sh) rooted at that repo, restarts it
-# when the sibling moves to a different repo, and shows a placeholder
-# when the sibling isn't inside a git repo. Exits when the sibling pane
-# closes or when the viewer is quit with q.
+# Follows the sibling (left) pane's directory: runs `tig status` rooted at
+# that repo, restarts it when the sibling moves to a different repo, and
+# shows a placeholder when the sibling isn't inside a git repo. Exits when
+# the sibling pane closes or when tig is quit with q.
 set -u
 
 POLL=1
@@ -44,7 +43,10 @@ while :; do
   fi
   shown_dir=""
 
-  "$HOME/.dotfiles/scripts/dev-tab-diff.sh" "$root" &
+  # stdin from /dev/tty: backgrounding (&) redirects stdin to /dev/null,
+  # and tig refuses to run interactively without a terminal on stdin
+  # (lazygit/fzf opened /dev/tty themselves; tig does not).
+  ( cd "$root" && exec tig status </dev/tty ) &
   viewer_pid=$!
   status=user_quit
   while kill -0 "$viewer_pid" 2>/dev/null; do

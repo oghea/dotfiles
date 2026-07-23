@@ -1,0 +1,6 @@
+# tig config — powers the dev tab's files/diff pane (see dev-tab-watch.sh).
+# Auto-refresh keeps the status view current as the working tree changes
+# without losing the cursor/scroll position; vertical split puts the file
+# list and the diff side by side.
+set refresh-mode = auto
+set vertical-split = yes

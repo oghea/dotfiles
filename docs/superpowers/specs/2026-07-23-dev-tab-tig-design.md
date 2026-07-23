@@ -57,12 +57,18 @@ Replace the viewer launch line:
 with:
 
 ```bash
-  ( cd "$root" && exec tig status ) &
+  ( cd "$root" && exec tig status </dev/tty ) &
 ```
 
 `exec` makes tig take over the subshell's PID, so `viewer_pid=$!` is
 tig's PID and the existing `kill "$viewer_pid"` on repo-change /
-sibling-close reaps it directly. The header comment is updated to say
+sibling-close reaps it directly. The `</dev/tty` is required: a
+backgrounded job (`&`) has its stdin redirected to `/dev/null`, and tig
+refuses to run interactively without a terminal on stdin (it prints
+"Ignoring stdin" and exits 1). lazygit and fzf opened `/dev/tty`
+themselves, so they didn't need this; tig does. Job control is off in the
+non-interactive watcher, so tig shares the pane's foreground process
+group and reads `/dev/tty` without SIGTTIN. The header comment is updated to say
 "tig status" instead of the files+diff viewer. The follow-loop,
 placeholder, and sibling-exit logic are otherwise unchanged.
 

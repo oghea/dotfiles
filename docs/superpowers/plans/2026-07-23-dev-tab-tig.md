@@ -83,13 +83,16 @@ In `scripts/dev-tab-watch.sh`, replace the viewer launch line (line 47):
   "$HOME/.dotfiles/scripts/dev-tab-diff.sh" "$root" &
 ```
 
-with:
+with (note the leading comment lines and the `</dev/tty`):
 
 ```bash
-  ( cd "$root" && exec tig status ) &
+  # stdin from /dev/tty: backgrounding (&) redirects stdin to /dev/null,
+  # and tig refuses to run interactively without a terminal on stdin
+  # (lazygit/fzf opened /dev/tty themselves; tig does not).
+  ( cd "$root" && exec tig status </dev/tty ) &
 ```
 
-(`exec` makes tig take over the subshell's PID, so the existing `viewer_pid=$!` and `kill "$viewer_pid"` on the next lines reap tig directly — no other changes to the loop.)
+(`exec` makes tig take over the subshell's PID, so the existing `viewer_pid=$!` and `kill "$viewer_pid"` on the next lines reap tig directly — no other changes to the loop. The `</dev/tty` is mandatory: without it, backgrounding sends tig's stdin to `/dev/null` and it exits 1 with "Ignoring stdin" — verified. Job control is off in the watcher, so tig shares the pane's foreground group and reads `/dev/tty` without SIGTTIN.)
 
 - [ ] **Step 6: Update the watcher's header comment**
 
@@ -152,10 +155,11 @@ command tmux split-window -h -l 40% -t sdd-tig -c /private/tmp/sdd-nogit '~/.dot
 sleep 2
 echo "--- no-repo placeholder (expect PLACEHOLDER-OK):"
 command tmux capture-pane -p -t sdd-tig:1.2 | grep -q 'no git repository' && echo PLACEHOLDER-OK
+: > /private/tmp/sdd-tigrepo/change.txt
 command tmux send-keys -t sdd-tig:1.1 'cd /private/tmp/sdd-tigrepo' Enter
 sleep 3
-echo "--- viewer process when sibling is in a repo (expect tig):"
-command tmux list-panes -t sdd-tig:1 -F '#{pane_index} #{pane_current_command}'
+echo "--- tig renders when sibling is in a repo (verify by CONTENT, not pane_current_command):"
+command tmux capture-pane -p -t sdd-tig:1.2 | grep -qiE 'change.txt|staged|commit' && echo TIG-RENDERS-OK
 echo "--- sibling close tears down the pane (expect GONE):"
 command tmux kill-pane -t sdd-tig:1.1
 sleep 3
@@ -163,7 +167,9 @@ command tmux has-session -t sdd-tig 2>/dev/null || echo GONE
 command tmux kill-session -t sdd-tig 2>/dev/null
 rm -rf /private/tmp/sdd-nogit /private/tmp/sdd-tigrepo
 ```
-Expected: `PLACEHOLDER-OK`; pane 2's `#{pane_current_command}` is `tig` when the sibling is in a repo; `GONE` after killing the left pane (the watcher exits with its sibling, leaving no panes, so the session ends). Record actual output. If pane 2's command is `dev-tab-diff.sh`/`fzf`/`bash` instead of `tig`, the swap didn't take — STOP and report BLOCKED.
+Expected: `PLACEHOLDER-OK`; `TIG-RENDERS-OK` (tig's status view shows the changed file when the sibling is in a repo); `GONE` after killing the left pane (the watcher exits with its sibling, leaving no panes, so the session ends). Record actual output.
+
+Note: verify by tig's rendered CONTENT, not `#{pane_current_command}` — tig runs as the watcher's backgrounded child, so `pane_current_command` reports the shell (`bash`), not `tig`. That is expected and correct; the content check is the real signal. If the pane shows the placeholder or is empty when the sibling is in a repo, the viewer isn't launching — STOP and report BLOCKED.
 
 - [ ] **Step 11: Commit**
 
